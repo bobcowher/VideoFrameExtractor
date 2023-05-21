@@ -34,17 +34,18 @@ except:
 # Loop through and process images.
 try:
     while True:
-        video.set(cv2.CAP_PROP_POS_MSEC, frame_number)
-        ret, frame = video.read()
-        cv2.imwrite(f'./{name}_image_output/{name}_frame_{frame_number}.png', frame)
-
         if frame_number % 1000 == 0:
-            print(f"Processed {frame_number} images...")
+            video.set(cv2.CAP_PROP_POS_MSEC, frame_number)
+            ret, frame = video.read()
+            cv2.imwrite(f'./{name}_image_output/{name}_frame_{frame_number}.png', frame)
+
+            if frame_number % 100000 == 0:
+                print(f"Processed {frame_number / 1000} images...")
 
         frame_number += 1
 
 except:
-    print(f"Completed writing {frame_number} images")
+    print(f"Completed writing {frame_number / 1000} images")
 
 
 
